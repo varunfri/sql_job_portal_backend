@@ -27,6 +27,7 @@ CREATE TABLE JobSeeker (
 -- Table: Job
 CREATE TABLE Job (
     ID INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255),
     descr TEXT,
     exp INT,
     profile VARCHAR(255),
@@ -36,15 +37,16 @@ CREATE TABLE Job (
 );
 
 -- Inserting data into Job table (signup company user with email comp@test)
-INSERT INTO Job (descr, exp, profile, techs, email) VALUES 
-('Software engineer who can work on enterprise projects using spring boot and mongodb and react', 1, 'Developer', 'java,spring,springbot,microservices', 'comp@test'),
-('Associate consultant architecture of software, Agile, Devops', 10, 'Architect', 'java,spring,springbot,Azure,devops', 'comp@test');
+INSERT INTO Job (title, descr, exp, profile, techs, email) VALUES 
+('Software engineer', 'Software engineer who can work on enterprise projects using spring boot and mongodb and react', 1, 'Developer', 'java,spring,springbot,microservices', 'comp@test'),
+('Devops engineer','Associate consultant architecture of software, Agile, Devops', 10, 'Architect', 'java,spring,springbot,Azure,devops', 'comp@test');
 
 -- Table: Apply
 CREATE TABLE Apply (
     jobID INT,
     providerEmail VARCHAR(255),
     seekerEmail VARCHAR(255),
+    PRIMARY KEY (jobID, providerEmail, seekerEmail),
     FOREIGN KEY (jobID) REFERENCES Job(ID),
     FOREIGN KEY (providerEmail) REFERENCES Company(email),
     FOREIGN KEY (seekerEmail) REFERENCES JobSeeker(email)
